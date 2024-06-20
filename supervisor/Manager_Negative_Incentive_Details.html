@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{{ block title }}Manager{{ endblock }}
+{{ block content }}
+
+    <p>
+        Which of the following outcomes could occur if your manager is displeased with your performance? This is about future possibilities, so it is okay if these outcomes have not occured before. Do not worry if you are not sure, please take your best guess. For each outcome, select Yes/No.
+    </p>
+
+    {{formfields}}
+
+    {{next_button}}
+    
+{{ endblock }}
+
+

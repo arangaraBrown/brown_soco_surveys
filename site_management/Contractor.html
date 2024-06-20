@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{{ block title }}Contractor{{ endblock }}
+{{ block content }}
+
+    <p>
+        Next, we are going to ask some questions about your relationship with the contractors at your site. All this information is kept confidential.
+    </p>
+
+    {{ formfields }}
+
+    {{ next_button }}
+
+{{ endblock }}
+
+

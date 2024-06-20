@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{{ block title }}Manager{{ endblock }}
+{{ block content }}
+
+    <p>
+        Next, we are going to ask some questions about your relationship with your manager. For each one, please select how much you agree or disagree.  There are no correct answers; please just tell us what you think.  You will probably agree with some statements and disagree with others.  All of this information will be kept confidential.
+    </p>
+
+    {{formfields}}
+
+    {{next_button}}
+    
+{{ endblock }}
+
+
