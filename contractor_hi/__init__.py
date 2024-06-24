@@ -377,42 +377,42 @@ class Workplace(Page):
 class Principal_Company_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == 1
+        return player.owner == '1'
     form_model = 'player'
     form_fields = ['relationship_incentive','principal_company_approval_incentive','principal_company_disapproval_incentive','productivity_incentive','principal_company_trust']
 
 class Principal_Company_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == 0
+        return not player.owner == '1'
     form_model = 'player'
     form_fields = ['relationship_incentive','principal_company_approval_incentive','principal_company_disapproval_incentive','productivity_incentive','principal_company_trust','interaction','decision_power']
 
 class Principal_Company_Positive_Incentive_Details_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == 1
+        return player.owner == '1'
     form_model = 'player'
     form_fields = ['respect','contract','increased_business','increased_payment','commendment_external','peer_acknowledgment', 'other_incentives']
 
 class Principal_Company_Positive_Incentive_Details_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == 0
+        return not player.owner == '1'
     form_model = 'player'
     form_fields = ['promotion','bonus','job_security', 'commendment_internal','respect','contract','increased_business','increased_payment','commendment_external','peer_acknowledgment', 'other_incentives']
 
 class Principal_Company_Negative_Incentive_Details_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == 1
+        return player.owner == '1'
     form_model = 'player'
     form_fields = ['respect_negative','contract_negative','increased_business_negative','increased_payment_negative','commendment_external_negative','peer_acknowledgment_negative', 'other_incentives_negative']
 
 class Principal_Company_Negative_Incentive_Details_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == 0 
+        return not player.owner == '1' 
     form_model = 'player'
     form_fields = ['promotion_negative','bonus_negative','job_security_negative', 'commendment_internal_negative','respect_negative','contract_negative','increased_business_negative','increased_payment_negative','commendment_external_negative','peer_acknowledgment_negative', 'other_incentives_negative']
 

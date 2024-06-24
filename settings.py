@@ -10,9 +10,6 @@ SESSION_CONFIGS = [
     dict(
         name='contractor_hi', app_sequence=['contractor_hi'], num_demo_participants=1
     ),
-    dict(
-        name='supervisor', app_sequence=['supervisor'], num_demo_participants=1
-    ),
 ]
 
 ROOMS = [
