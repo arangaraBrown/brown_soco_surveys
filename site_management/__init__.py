@@ -21,9 +21,6 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    consent = models.BooleanField(
-        label='Do you consent to participate in this survey?',
-    )
     #Demographics
     age = models.IntegerField(label='What is your age?', min=13, max=125)
     gender = models.StringField(
@@ -395,66 +392,38 @@ class Player(BasePlayer):
     
 
 # PAGES
-class Consent(Page):
-    form_model = 'player'
-    form_fields = ['consent']
-
 class Demographics(Page):
-    @staticmethod
-    def is_displayed(player):
-        return player.consent
     form_model = 'player'
     form_fields = ['age','gender','company','site', 'company_experience', 'industry_experience']
 
 class Workplace(Page):
-    @staticmethod
-    def is_displayed(player):
-        return player.consent
     form_model = 'player'
     form_fields = ['workload','stress','fixed_mindset','teamwork','common_goals','competition']
 
 class Manager(Page):
-    @staticmethod
-    def is_displayed(player):
-        return player.consent
     form_model = 'player'
     form_fields = ['career_incentive','management_approval_incentive','management_disapproval_incentive','productivity_incentive','profits_incentive', 'quality_incentive','manager_trust']
 
 class Manager_Positive_Incentive_Details(Page):
-    @staticmethod
-    def is_displayed(player):
-        return (player.consent and (player.management_approval_incentive == '4' or player.management_approval_incentive == '5'))
     form_model = 'player'
     form_fields = ['promotion','bonus','commendment', 'peer_acknowledgment', 'job_security', 'respect','other_incentives']
 
 class Manager_Negative_Incentive_Details(Page):
-    @staticmethod
-    def is_displayed(player):
-        return (player.consent and (player.management_disapproval_incentive == '4' or player.management_disapproval_incentive == '5'))
     form_model = 'player'
     form_fields = ['promotion_negative','bonus_negative','commendment_negative', 'peer_acknowledgment_negative', 'job_security_negative', 'respect_negative','other_incentives_negative']
 
 class Contractor(Page):
-    @staticmethod
-    def is_displayed(player):
-        return player.consent
     form_model = 'player'
     form_fields = ['contractor_desicion_power', 'contractor_non_compliance', 'contractor_communication_mode','contractor_communication_frequency','contractor_oversight','contractor_review',
                    'contractor_compliance_positive_incentive', 'contractor_compliance_positive_incentive_details',
                    'contractor_compliance_negative_incentive', 'contractor_compliance_negative_incentive_details']
 
 class Worker(Page):
-    @staticmethod
-    def is_displayed(player):
-        return player.consent
     form_model = 'player'
     form_fields = ['dehumanization_1','dehumanization_2','dehumanization_3','dehumanization_4','dehumanization_5','dehumanization_6','dehumanization_7','worker_motivation','worker_voice_attitudes','gender_leadership','gender_compliance','gender_norms',
                    'gender_productivity', 'geography_1','geography_2','caste_1','caste_2','worker_empathy_1','worker_empathy_2','responsibility_1','responsibility_2','responsibility_3','responsibility_4', ]
 
 class Factory_Outcomes(Page):
-    @staticmethod
-    def is_displayed(player):
-        return player.consent
     form_model = 'player'
     form_fields = ['productivity_perceptions_1','profits_perceptions_1','productivity_perceptions_2','quality_perceptions_1','profits_perceptions_2','profits_perceptions_3']
 
@@ -462,4 +431,4 @@ class Thanks(Page):
     form_model = 'player'
 
 
-page_sequence = [Consent, Demographics, Workplace, Manager, Manager_Positive_Incentive_Details,Manager_Negative_Incentive_Details, Contractor, Worker, Factory_Outcomes, Thanks]
+page_sequence = [Demographics, Workplace, Manager, Manager_Positive_Incentive_Details,Manager_Negative_Incentive_Details, Contractor, Worker, Factory_Outcomes, Thanks]

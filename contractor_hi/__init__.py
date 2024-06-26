@@ -370,9 +370,19 @@ class Demographics(Page):
     form_model = 'player'
     form_fields = ['age','gender','company','site','employer','owner','position', 'position_detail', 'company_experience', 'industry_experience']
 
-class Workplace(Page):
+class Workplace_Owner(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.owner == '1'
     form_model = 'player'
     form_fields = ['workload','stress','fixed_mindset','teamwork','common_goals','competition']
+
+class Workplace_Representative(Page):
+    @staticmethod
+    def is_displayed(player):
+        return not player.owner == '1'
+    form_model = 'player'
+    form_fields = ['workload','stress','fixed_mindset','teamwork','common_goals','competition','company_employee_relationship']
 
 class Principal_Company_Owner(Page):
     @staticmethod
@@ -425,4 +435,4 @@ class Thanks(Page):
     form_model = 'player'
 
 
-page_sequence = [Demographics, Workplace, Principal_Company_Owner,Principal_Company_Representative, Principal_Company_Positive_Incentive_Details_Owner, Principal_Company_Positive_Incentive_Details_Representative, Principal_Company_Negative_Incentive_Details_Owner,Principal_Company_Negative_Incentive_Details_Representative, Worker, Thanks]
+page_sequence = [Demographics, Workplace_Owner, Workplace_Representative, Principal_Company_Owner,Principal_Company_Representative, Principal_Company_Positive_Incentive_Details_Owner, Principal_Company_Positive_Incentive_Details_Representative, Principal_Company_Negative_Incentive_Details_Owner,Principal_Company_Negative_Incentive_Details_Representative, Worker, Thanks]
