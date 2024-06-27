@@ -180,7 +180,7 @@ class Player(BasePlayer):
         label = "मेरी कंपनी के काम की तारीफ अन्य कॉन्ट्रैक्टर द्वारा की जा सकती है।"
     )
     other_incentives = models.StringField(
-        label = "यदि प्रिंसिपल कंपनी आपके काम से प्रसन्न है तो कृपया आपको या आपकी कंपनी को मिलने वाले अन्य लाभों का उल्लेख करें।"
+        label = "कृपया आपको या आपकी कंपनी को मिलने वाले किसी अन्य लाभ का उल्लेख करें।"
     )
     #Principal Company Negative Incentives Details
     promotion_negative = models.StringField(
@@ -224,7 +224,7 @@ class Player(BasePlayer):
         label = 'अन्य कॉन्ट्रैक्टर द्वारा मेरी कंपनी की आलोचना की जा सकती है।'
     )
     other_incentives_negative = models.StringField(
-        label = 'कृपया बताएं कि यदि प्रिंसिपल कंपनी आपके काम से नाखुश है तो आपको या आपकी कंपनी को किन अन्य परिणामों का सामना करना पड़ सकता है।'
+        label = 'कृपया आपको या आपकी कंपनी को मिलने वाले किसी भी अन्य परिणाम का उल्लेख करें|'
     )    
     #Worker
     dehumanization_1 = models.StringField(

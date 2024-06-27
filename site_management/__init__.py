@@ -144,7 +144,7 @@ class Player(BasePlayer):
         label = 'I may be more respected at work.'
     )
     other_incentives = models.StringField(
-        label = 'Please specify any other benefits you may receive if your manager is pleased with your performance.'
+        label = 'Please specify any other benefits you may receive if your manager is pleased with the working conditions at your site.'
     )
     #Manager Negative Incentives Details
     promotion_negative = models.StringField(
@@ -172,7 +172,7 @@ class Player(BasePlayer):
         label = 'I may be less respected at work.'
     )
     other_incentives_negative = models.StringField(
-        label = 'Please specify any other benefits you may receive if your manager is displeased with your performance.'
+        label = 'Please specify any other benefits you may receive if your manager is displeased with the working conditions at your site.'
     )
     #Contractor
     contractor_desicion_power = models.StringField(
@@ -405,10 +405,16 @@ class Manager(Page):
     form_fields = ['career_incentive','management_approval_incentive','management_disapproval_incentive','productivity_incentive','profits_incentive', 'quality_incentive','manager_trust']
 
 class Manager_Positive_Incentive_Details(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.management_approval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['promotion','bonus','commendment', 'peer_acknowledgment', 'job_security', 'respect','other_incentives']
-
+    
 class Manager_Negative_Incentive_Details(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.management_disapproval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['promotion_negative','bonus_negative','commendment_negative', 'peer_acknowledgment_negative', 'job_security_negative', 'respect_negative','other_incentives_negative']
 

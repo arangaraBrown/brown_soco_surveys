@@ -173,7 +173,7 @@ class Player(BasePlayer):
         label = "My company's acheivements may be acknowledged by other contractors."
     )
     other_incentives = models.StringField(
-        label = "Please specify any other benefits you or your company may receive if the principal company is pleased with your contractor's performance."
+        label = "Please specify any other benefits you or your company may receive."
     )
     #Principal Company Negative Incentives Details
     promotion_negative = models.StringField(
@@ -217,7 +217,7 @@ class Player(BasePlayer):
         label = 'My company may be criticized by other contractors.'
     )
     other_incentives_negative = models.StringField(
-        label = 'Please specify any other ramifications you or your company may face if the principal company is displeased with your performance.'
+        label = 'Please specify any other ramifications you or your company may face.'
     )    
     #Worker
     dehumanization_1 = models.StringField(
