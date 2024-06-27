@@ -374,14 +374,14 @@ class Demographics(Page):
 class Workplace_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner
+        return player.owner == '1'
     form_model = 'player'
     form_fields = ['workload','stress','fixed_mindset','teamwork','common_goals','competition']
 
 class Workplace_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return not player.owner
+        return player.owner != '1'
     form_model = 'player'
     form_fields = ['workload','stress','fixed_mindset','teamwork','common_goals','competition','company_employee_relationship']
 
