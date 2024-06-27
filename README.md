@@ -1,5 +1,7 @@
 Welcome to the Brown | Social Compact Surveys!
 
+Authors: Sneha and Ari!
+
 The purpose of these surveys are to understand the information, incentives, and social psychology that affect how site managers and labor contractors treat their workers. 
 Each of the questions has a landing point attached to it (e.g. dehumanization, stress, promotion_incentive, etc.). Many of these were taken from work by Laura Babbit and Drusilla Brown of
 Tufts University.
