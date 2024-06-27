@@ -86,26 +86,26 @@ class Player(BasePlayer):
     competition = models.StringField(
         choices=[['1','कभी नहीं'],['2','कभी-कभी'],
                  ['3','लगभग आधा समय'],['4','ज्यादातर'],['5','हमेशा']],
-        label='आप निम्नलिखित वाक्य से कितना सहमत हैं: अन्य कॉन्ट्रैक्टर की तुलना में, मैं अपने श्रमिकों के लिए बेहतर कार्य परिस्थितियाँ सुनिश्चित करना चाहता हूँ|',
+        label='आप निम्नलिखित वाक्यों से कितना सहमत हैं: मैं अपने श्रमिकों के लिए अन्य ठेकेदारों से बेहतर कामकाजी परिस्थिति और इंक्लूसिव प्रथा दिलाना चाहता हूं।',
         widget=widgets.RadioSelect,
     )
     #Principal Company
     relationship_incentive = models.StringField(
         choices=[['1','कभी नहीं'],['2','कभी-कभी'],
                  ['3','लगभग आधा समय'],['4','ज्यादातर'],['5','हमेशा']],
-        label="प्रिंसिपल कंपनी के साथ मेरी कंपनी का संबंध मेरे श्रमिकों के काम स्थिति की गुणवत्ता से काफी प्रभावित होता है|",
+        label="प्रिंसिपल कंपनी के साथ मेरी कंपनी के संबंध मेरे श्रमिकों के कार्यस्थिति और इन्क्लूसिव प्रथाओं की गुणवत्ता से बहुत प्रभावित होती है।",
         widget=widgets.RadioSelect,
     )
     principal_company_approval_incentive = models.StringField(
         choices=[['1','कभी नहीं'],['2','कभी-कभी'],
                  ['3','लगभग आधा समय'],['4','ज्यादातर'],['5','हमेशा']],
-        label="यदि मेरे श्रमिकों के लिए काम करने की स्थितियाँ अच्छी हैं, तो प्रिंसिपल कंपनी मेरी कंपनी के कार्य से प्रसन्न होगी|",
+        label="यदि मैं कामकाजी परिस्थितियों और इंक्लूसिव प्रथाओं पर प्रिंसिपल कंपनी की अपेक्षाओं को पूरा करता हूं, तो प्रिंसिपल कंपनी मेरी कंपनी के काम से खुश होगी।",
         widget=widgets.RadioSelect,
     )
     principal_company_disapproval_incentive = models.StringField(
         choices=[['1','कभी नहीं'],['2','कभी-कभी'],
                  ['3','लगभग आधा समय'],['4','ज्यादातर'],['5','हमेशा']],
-        label="यदि मेरे श्रमिकों के लिए काम करने की स्थितियाँ खराब/अपर्याप्त हैं, तो प्रिंसिपल कंपनी मेरी कंपनी के कार्य से नाखुश होगी|",
+        label="यदि मैं कामकाजी परिस्थितियों और इन्क्लूसिव प्रथाओं पर प्रिंसिपल कंपनी की अपेक्षाओं को पूरा नहीं करता हूं, तो प्रिंसिपल कंपनी मेरी कंपनी के काम से नाखुश होगी।",
         widget=widgets.RadioSelect,
     )
     productivity_incentive = models.StringField(
@@ -365,7 +365,8 @@ class Player(BasePlayer):
         label='यह सुनिश्चित करना मेरी जिम्मेदारी है कि इस कारखाने के श्रमिक उचित सरकारी योजनाओं के लिए पंजीकृत हों।',
         widget=widgets.RadioSelect
     )
-    # PAGES
+
+# PAGES
 class Demographics(Page):
     form_model = 'player'
     form_fields = ['age','gender','company','site','employer','owner','position', 'position_detail', 'company_experience', 'industry_experience']
@@ -373,14 +374,14 @@ class Demographics(Page):
 class Workplace_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == '1'
+        return player.owner
     form_model = 'player'
     form_fields = ['workload','stress','fixed_mindset','teamwork','common_goals','competition']
 
 class Workplace_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return not player.owner == '1'
+        return not player.owner
     form_model = 'player'
     form_fields = ['workload','stress','fixed_mindset','teamwork','common_goals','competition','company_employee_relationship']
 
@@ -394,35 +395,35 @@ class Principal_Company_Owner(Page):
 class Principal_Company_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return not player.owner == '1'
+        return player.owner != '1'
     form_model = 'player'
     form_fields = ['relationship_incentive','principal_company_approval_incentive','principal_company_disapproval_incentive','productivity_incentive','principal_company_trust','interaction','decision_power']
 
 class Principal_Company_Positive_Incentive_Details_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == '1'
+        return player.owner == '1' and player.principal_company_approval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['respect','contract','increased_business','increased_payment','commendment_external','peer_acknowledgment', 'other_incentives']
 
 class Principal_Company_Positive_Incentive_Details_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return not player.owner == '1'
+        return (player.owner != '1') and player.principal_company_approval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['promotion','bonus','job_security', 'commendment_internal','respect','contract','increased_business','increased_payment','commendment_external','peer_acknowledgment', 'other_incentives']
 
 class Principal_Company_Negative_Incentive_Details_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner == '1'
+        return player.owner == '1'and player.principal_company_disapproval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['respect_negative','contract_negative','increased_business_negative','increased_payment_negative','commendment_external_negative','peer_acknowledgment_negative', 'other_incentives_negative']
 
 class Principal_Company_Negative_Incentive_Details_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return not player.owner == '1' 
+        return (player.owner != '1') and player.principal_company_disapproval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['promotion_negative','bonus_negative','job_security_negative', 'commendment_internal_negative','respect_negative','contract_negative','increased_business_negative','increased_payment_negative','commendment_external_negative','peer_acknowledgment_negative', 'other_incentives_negative']
 
@@ -433,6 +434,5 @@ class Worker(Page):
 
 class Thanks(Page):
     form_model = 'player'
-
 
 page_sequence = [Demographics, Workplace_Owner, Workplace_Representative, Principal_Company_Owner,Principal_Company_Representative, Principal_Company_Positive_Incentive_Details_Owner, Principal_Company_Positive_Incentive_Details_Representative, Principal_Company_Negative_Incentive_Details_Owner,Principal_Company_Negative_Incentive_Details_Representative, Worker, Thanks]

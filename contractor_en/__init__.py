@@ -85,26 +85,26 @@ class Player(BasePlayer):
     competition = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='How much do you agree with the following statement: I want to ensure better working conditions for my workers than other contractors provide for their workers.',
+        label='How much do you agree with the following statement: I want to ensure better working conditions and inclusive practices for my workers than other contractors provide for their workers.',
         widget=widgets.RadioSelect,
     )
     #Principal Company
     relationship_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label="The quality of working conditions for my workers significantly influences my company's contractual relationship with the principal company.",
+        label="The quality of working conditions and inclusive practices for my workers significantly influences my company's contractual relationship with the principal company.",
         widget=widgets.RadioSelect,
     )
     principal_company_approval_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label="If working conditions for my workers are good, the principal company will be pleased with my company's performance.",
+        label="If I meet the principal company's expectations on working conditions and worker-inclusive practices, the principal company will be pleased with my company's performance.",
         widget=widgets.RadioSelect,
     )
     principal_company_disapproval_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label="If working conditions for my workers are poor/inadequate, the principal company will be displeased with my company's performance.",
+        label="If I do not meet the principal company's expectations on working conditions and worker-inclusive practices, the principal company will be displeased with my company's performance.",
         widget=widgets.RadioSelect,
     )
     productivity_incentive = models.StringField(
@@ -394,28 +394,28 @@ class Principal_Company_Representative(Page):
 class Principal_Company_Positive_Incentive_Details_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner
+        return player.owner and player.principal_company_approval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['respect','contract','increased_business','increased_payment','commendment_external','peer_acknowledgment', 'other_incentives']
 
 class Principal_Company_Positive_Incentive_Details_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return (not player.owner)
+        return (not player.owner) and player.principal_company_approval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['promotion','bonus','job_security', 'commendment_internal','respect','contract','increased_business','increased_payment','commendment_external','peer_acknowledgment', 'other_incentives']
 
 class Principal_Company_Negative_Incentive_Details_Owner(Page):
     @staticmethod
     def is_displayed(player):
-        return player.owner 
+        return player.owner and player.principal_company_disapproval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['respect_negative','contract_negative','increased_business_negative','increased_payment_negative','commendment_external_negative','peer_acknowledgment_negative', 'other_incentives_negative']
 
 class Principal_Company_Negative_Incentive_Details_Representative(Page):
     @staticmethod
     def is_displayed(player):
-        return (not player.owner) 
+        return (not player.owner) and player.principal_company_disapproval_incentive in ['4', '5']
     form_model = 'player'
     form_fields = ['promotion_negative','bonus_negative','job_security_negative', 'commendment_internal_negative','respect_negative','contract_negative','increased_business_negative','increased_payment_negative','commendment_external_negative','peer_acknowledgment_negative', 'other_incentives_negative']
 
