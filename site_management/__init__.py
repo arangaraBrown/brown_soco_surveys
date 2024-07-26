@@ -76,46 +76,52 @@ class Player(BasePlayer):
     )
 
     #Manager
+    salience_perception = models.StringField(
+        choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
+                    ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
+        label='My manager cares about the quality of working conditions at my site.',
+        widget=widgets.RadioSelect,
+    )
     career_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='The quality of working conditions at my site significantly influences my career trajectory within this company',
+        label='The quality of working conditions at my site significantly influences my career trajectory within this company.',
         widget=widgets.RadioSelect,
     )
     management_approval_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='If working conditions at my site are good, my manager will be pleased with my performance',
+        label='If working conditions at my site are good, my manager will be pleased with my performance.',
         widget=widgets.RadioSelect,
     )
     management_disapproval_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='If working conditions at my site are poor/inadequate, my manager will be displeased with my performance',
+        label='If working conditions at my site are poor/inadequate, my manager will be displeased with my performance.',
         widget=widgets.RadioSelect,
     )
     productivity_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='My manager cares about the productivity at my site',
+        label='My manager cares about the productivity at my site.',
         widget=widgets.RadioSelect,
     )
     profits_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='My manager cares about the profits at my site',
+        label='My manager cares about the profits at my site.',
         widget=widgets.RadioSelect,
     )
     quality_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='My manager cares about the quality at my site',
+        label='My manager cares about the quality at my site.',
         widget=widgets.RadioSelect,
     )
     manager_trust = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label='I trust my manager to make decisions that will positively benefit me',
+        label='I trust my manager to make decisions that will positively benefit me.',
         widget=widgets.RadioSelect,
     )
     #Manager Positive Incentives Details
@@ -402,7 +408,7 @@ class Workplace(Page):
 
 class Manager(Page):
     form_model = 'player'
-    form_fields = ['career_incentive','management_approval_incentive','management_disapproval_incentive','productivity_incentive','profits_incentive', 'quality_incentive','manager_trust']
+    form_fields = ['salience_perception','career_incentive','management_approval_incentive','management_disapproval_incentive','productivity_incentive','profits_incentive', 'quality_incentive','manager_trust']
 
 class Manager_Positive_Incentive_Details(Page):
     @staticmethod

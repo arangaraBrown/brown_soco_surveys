@@ -33,12 +33,6 @@ class Player(BasePlayer):
     employer = models.StringField(label = 'Which contractor do you work for?')
     owner = models.BooleanField(label='Are you the owner of your company?',
     )
-    position = models.StringField(
-        label = 'What is your job title? Please note that if you have more than one job title we are interested in the title or responsibilities that you regard as the most important.'
-    )
-    position_detail = models.StringField(
-        label = 'Please describe your role in more detail.'
-    )
     company_experience = models.IntegerField(
         label = 'How many full years have you worked for your company? If you have worked for this company less than one year, please enter 0', min = 0, max = 100
     )
@@ -89,10 +83,16 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
     )
     #Principal Company
+    salience_perception = models.StringField(
+        choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
+                 ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
+        label="The principal company cares about the quality of working conditions and inclusive practices for my workers.",
+        widget=widgets.RadioSelect,
+    )
     relationship_incentive = models.StringField(
         choices=[['1','Strongly Disagree'],['2','Somewhat Disagree'],
                  ['3','Neither agree nor disagree'],['4','Somewhat Agree'],['5','Strongly Agree']],
-        label="The quality of working conditions and inclusive practices for my workers significantly influences my company's contractual relationship with the principal company.",
+        label="The quality of the working conditions and inclusive practices I provide my workers significantly influences my company's contractual relationship with the principal company.",
         widget=widgets.RadioSelect,
     )
     principal_company_approval_incentive = models.StringField(
@@ -119,13 +119,25 @@ class Player(BasePlayer):
         label='I trust the principal company to make decisions that will positively benefit my company.',
         widget=widgets.RadioSelect,
     )
-    interaction = models.StringField(
+    interaction_owner = models.StringField(
+        choices=[['1','Only by me'],['2','Mostly by me'],
+                 ['3','Equally by me and management'],['4','Mostly by management'],['5','Only by the management']],
+        label="Is interaction with the prinicpal company primarily done by you or by your company's staff?",
+        widget=widgets.RadioSelect,
+    )
+    decision_power_owner = models.StringField(
+        choices=[['1','Only by me'],['2','Mostly by me'],
+                 ['3','Equally by me and management'],['4','Mostly by management'],['5','Only by management']],
+        label="Are business decisions regarding the relationship with the principal company primarily made by you or by your company's staff?",
+        widget=widgets.RadioSelect,
+    )
+    interaction_rep = models.StringField(
         choices=[['1','Only by me'],['2','Mostly by me'],
                  ['3','Equally by me and management'],['4','Mostly by management'],['5','Only by the management']],
         label="Is interaction with the prinicpal company primarily done by you or by your company's management?",
         widget=widgets.RadioSelect,
     )
-    decision_power = models.StringField(
+    decision_power_rep = models.StringField(
         choices=[['1','Only by me'],['2','Mostly by me'],
                  ['3','Equally by me and management'],['4','Mostly by management'],['5','Only by management']],
         label="Are business decisions regarding the relationship with the principal company primarily made by you or by your company's management?",
@@ -361,7 +373,7 @@ class Player(BasePlayer):
 # PAGES
 class Demographics(Page):
     form_model = 'player'
-    form_fields = ['age','gender','company','site','employer','owner','position', 'position_detail', 'company_experience', 'industry_experience']
+    form_fields = ['age','gender','company','site','employer','owner', 'company_experience', 'industry_experience']
 
 class Workplace_Owner(Page):
     @staticmethod
@@ -382,14 +394,14 @@ class Principal_Company_Owner(Page):
     def is_displayed(player):
         return player.owner
     form_model = 'player'
-    form_fields = ['relationship_incentive','principal_company_approval_incentive','principal_company_disapproval_incentive','productivity_incentive','principal_company_trust']
+    form_fields = ['salience_perception','relationship_incentive','principal_company_approval_incentive','principal_company_disapproval_incentive','productivity_incentive','principal_company_trust', 'interaction_owner','decision_power_owner']
 
 class Principal_Company_Representative(Page):
     @staticmethod
     def is_displayed(player):
         return not player.owner
     form_model = 'player'
-    form_fields = ['relationship_incentive','principal_company_approval_incentive','principal_company_disapproval_incentive','productivity_incentive','principal_company_trust','interaction','decision_power']
+    form_fields = ['salience_perception', 'relationship_incentive','principal_company_approval_incentive','principal_company_disapproval_incentive','productivity_incentive','principal_company_trust','interaction_rep','decision_power_rep']
 
 class Principal_Company_Positive_Incentive_Details_Owner(Page):
     @staticmethod
